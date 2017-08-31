@@ -1,0 +1,18 @@
+[
+{"clozeDeletion": "antarctica",
+"fullText": "antarctica has the fewest flowering plants."
+},
+{ "clozeDeletion": "5",
+  "fullText": "5 U.S. states border the Gulf of Mexico."
+},
+{ "clozeDeletion": "christopher colombus",
+  "fullText": "christopher colombus introduced pigs to North America."
+},
+{ "clozeDeletion":"pennsylvania",
+  "fullText": "pennsylvania is the only American state to begin with the letter 'p'."
+},
+{
+  "clozeDeletion": "greenland",
+  "fullText": "greenland is the world's biggest island."
+}
+]
