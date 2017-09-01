@@ -1,7 +1,7 @@
 var inquirer = require("inquirer");
-var questions = require("./cloze-questions.json")
-var counter = 0;
-var correctAnswercounter = 0;
+var clozeQuestions = require("./cloze-questions.json")
+var count = 0;
+var correctCount = 0;
 // var input = process.argv[2];
 
 function ClozeCard (text, cloze) {
@@ -9,50 +9,51 @@ function ClozeCard (text, cloze) {
     this.cloze =cloze;
 }
 
-// console.log(questions[0].fullText);
-// console.log(questions[0].clozeDeletion);
-
-
-
-// console.log(test);
-
-// ClozeCard();
-
-
-var askQuestion = function() {
-    if (counter < questions.length) {
-        var replace = questions[counter].fullText.replace(questions[counter].clozeDeletion, "...");
+var askQuestions = function() {
+    if (count < clozeQuestions.length) {
+        var replace = clozeQuestions[count].fullText.replace(clozeQuestions[count].clozeDeletion, "...");
         inquirer.prompt([{
-        type: "input",  
+        type: "input",
         name: "question",
         message: replace}])
         .then(function (answers) {
             var input = answers.question.toLowerCase();
-            
-         if (input === questions[counter].clozeDeletion){
-            console.log("Correct! The answer is: " + questions[counter].clozeDeletion);
-            correctAnswercounter++;
-            
-            
+
+         if (input === clozeQuestions[count].clozeDeletion){
+            console.log("Correct! The answer is: " + clozeQuestions[count].clozeDeletion);
+            correctCount++;
+
+
         } else {
-            console.log("INVALID! " + "The right answer is: " + questions[counter].clozeDeletion);
-            
+            console.log("Wrong! " + "The right answer is: " + clozeQuestions[count].clozeDeletion);
+
         }
-        counter++;
-        askQuestion();
-            // console.log(counter);
+        count++;
+        askQuestions();
         });
-        // console.log(cards);
-        // counter++;
-        // console.log(counter);
+
     } else {
         console.log("All questions aswered");
-        console.log("You answered: " + correctAnswercounter + " questions correctly.");
+        console.log("You answered: " + correctCount + " questions correctly.");
+        inquirer.prompt([
+            {
+            type: "confirm",
+            message: "Do you want to play again?",
+            name: "replay",
+            default: true
+            }
+        ]).then(function(answer) {
+
+            if (answer.replay === true) {
+                count = 0;
+                correctCount = 0;
+                askQuestions();
+            } else {
+                console.log("Thanks for playing!");
+            }
+        });
     }
 }
 
-askQuestion();
-// module.exports = ClozeCard;
-
-
-
+askQuestions();
+module.exports = ClozeCard;
